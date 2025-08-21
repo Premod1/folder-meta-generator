@@ -40,5 +40,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     const data = await res.json();
     result.textContent = JSON.stringify(data, null, 2);
+
+    // ✅ Generate PDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text(data.title || "Generated Folder", 10, 20);
+
+    doc.setFontSize(12);
+    const descLines = doc.splitTextToSize(data.description || "No description", 180);
+    doc.text("Description:", 10, 35);
+    doc.text(descLines, 10, 45);
+
+    doc.text("Tags:", 10, 45 + descLines.length * 7 + 10);
+    doc.text((data.tags || []).join(", "), 10, 45 + descLines.length * 7 + 20);
+
+    // Download PDF automatically
+    doc.save(`${data.title || "folder_metadata"}.pdf`);
   });
 });
