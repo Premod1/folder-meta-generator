@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Folder Metadata Generator</title>
+  </head>
+  <body>
+    <h1>Folder Metadata Generator (Python)</h1>
+    <p>Select a folder and generate metadata.</p>
+
+    <input id="folder" type="file" webkitdirectory multiple />
+    <button id="analyze">Generate Metadata</button>
+
+    <h2>Result</h2>
+    <pre id="result"></pre>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
