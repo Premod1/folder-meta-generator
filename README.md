@@ -7,7 +7,43 @@ A professional AI-powered web application that analyzes folder structures and ge
 ![Flask](https://img.shields.io/badge/Flask-2.0%2B-red.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
+## 📸 Screenshots
+
+### Main Interface
+![Main Interface](assets/Screenshot%20from%202025-08-25%2007-05-00.png)
+
+### Analysis Results with Individual File Descriptions
+![Analysis Results](assets/Screenshot%20from%202025-08-25%2007-05-12.png)
+
+## 🎯 How It Works
+
+1. **Select Your Folder**: Choose any folder from your system using the intuitive file picker
+2. **AI Analysis**: Our advanced AI analyzes each file based on its name, extension, and context
+3. **Individual Descriptions**: Get 2-3 sentence descriptions for every file in your folder
+4. **Smart Tagging**: Receive relevant keywords and tags for better organization
+5. **Export Options**: Save results in JSON, PDF, or Excel format for documentation and sharing
+
+## 💡 Design Philosophy
+
+The Folder Metadata Generator combines powerful AI capabilities with an elegant, professional interface:
+
+- **Modern UI Design**: Glass-morphism effects, gradient backgrounds, and smooth animations
+- **Mobile-First Responsive**: Seamless experience across all devices and screen sizes  
+- **Professional Color Scheme**: Carefully chosen colors for readability and visual appeal
+- **Intuitive Workflow**: Clear visual hierarchy guides users through the analysis process
+- **Export Flexibility**: Multiple format options to suit different documentation needs
+
+## 🔧 What You Get
+
+For each file in your selected folder, the application provides:
+- **Filename**: Original file name with extension
+- **Description**: 2-3 sentences explaining the file's likely purpose and content
+- **Tags**: Relevant keywords for categorization and search
+- **Professional Formatting**: Clean, readable output in multiple export formats
+
 ## 🚀 Features
+
+The Folder Metadata Generator provides a comprehensive solution for analyzing and documenting your project structures with AI-powered intelligence.
 
 ### Core Functionality
 - **AI-Powered Analysis**: Uses Groq's language models for intelligent folder structure analysis
@@ -16,6 +52,17 @@ A professional AI-powered web application that analyzes folder structures and ge
 - **Multi-Format Export**: Export results as JSON, professionally formatted PDF documents, or Excel spreadsheets
 - **Real-time Processing**: Instant analysis with loading states and progress indicators
 - **Error Handling**: Robust error management with user-friendly feedback
+
+### Export Options
+- **📄 JSON Export**: Clean, structured data for integration with other tools
+- **📊 Excel Export**: Spreadsheet format with organized columns for easy data manipulation
+- **📋 PDF Export**: Professional documents ready for presentations and documentation
+
+### User Experience
+- **Drag & Drop Interface**: Simple folder selection with visual feedback
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices  
+- **Professional Styling**: Modern UI with smooth animations and professional color schemes
+- **Real-time Feedback**: Loading indicators, success messages, and error handling
 
 ### Technical Features
 - **Modular Architecture**: Clean, separated JavaScript modules for maintainability
@@ -76,6 +123,9 @@ folder-meta-generator/
 ├── .env                        # Environment variables (create this)
 ├── .gitignore                 # Git ignore rules
 ├── README.md                  # This file
+├── assets/                    # Screenshots and images
+│   ├── Screenshot from 2025-08-25 07-05-00.png
+│   └── Screenshot from 2025-08-25 07-05-12.png
 ├── docs/                      # Documentation
 │   ├── API.md                 # API documentation
 │   ├── DEPLOYMENT.md          # Deployment guide
