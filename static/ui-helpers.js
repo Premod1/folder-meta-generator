@@ -25,13 +25,36 @@ function showError(message) {
 
 function showSuccess(data) {
   const result = document.getElementById("result");
+  
+  let filesHtml = '';
+  if (data.files && Array.isArray(data.files)) {
+    filesHtml = data.files.map(file => `
+      <div class="file-item" style="margin-bottom: 15px; padding: 10px; background: rgba(52, 73, 94, 0.3); border-radius: 5px;">
+        <h4 style="margin: 0 0 5px 0; color: #3498db;">
+          <i class="fas fa-file"></i> ${file.filename}
+        </h4>
+        <p style="margin: 5px 0; color: #ecf0f1;">${file.description}</p>
+        <div class="tags" style="margin-top: 8px;">
+          ${file.tags ? file.tags.map(tag => `
+            <span style="background: #27ae60; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; margin-right: 5px;">${tag}</span>
+          `).join('') : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+  
   result.innerHTML = `
     <div class="success" style="margin-bottom: 20px;">
       <i class="fas fa-check-circle"></i> 
       Analysis completed successfully!
     </div>
-    <div style="color: #ecf0f1;">
-${JSON.stringify(data, null, 2)}
+    <div style="color: #ecf0f1; margin-bottom: 20px;">
+      <h3 style="color: #e74c3c; margin-bottom: 15px;">
+        <i class="fas fa-folder"></i> ${data.title || 'Folder Analysis'}
+      </h3>
+      <div class="files-list">
+        ${filesHtml}
+      </div>
     </div>
   `;
 }

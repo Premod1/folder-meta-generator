@@ -36,8 +36,20 @@ function exportToPDF(metadata) {
   }
 }
 
+function exportToExcel(metadata) {
+  if (!metadata) {
+    throw new Error("No metadata to export");
+  }
+
+  const worksheet = XLSX.utils.json_to_sheet(metadata);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Metadata");
+  XLSX.writeFile(workbook, `${(metadata.title || "folder_metadata").replace(/[^a-zA-Z0-9]/g, '_')}.xlsx`);
+}
+
 // Export for use in other modules
 window.ExportHandler = {
   exportToJSON,
-  exportToPDF
+  exportToPDF,
+  exportToExcel
 };
