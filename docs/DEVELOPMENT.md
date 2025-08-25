@@ -47,11 +47,11 @@ python app.py
 Modular architecture with separated concerns:
 
 - **app.js**: Main orchestrator, handles user interactions
-- **tree-builder.js**: Converts file lists to tree structures
+- **tree-builder.js**: Converts file lists to tree structures  
 - **ui-helpers.js**: UI state management and feedback
 - **api-client.js**: Backend communication
 - **pdf-generator.js**: PDF document generation
-- **export-handler.js**: Export functionality coordination
+- **export-handler.js**: Export functionality (JSON, PDF, Excel)
 
 ### Styling
 - **CSS3 with modern features**: Gradients, backdrop-filter, flexbox, grid
@@ -73,7 +73,7 @@ folder-meta-generator/
 │   ├── ui-helpers.js     # UI state, loading, errors
 │   ├── api-client.js     # HTTP requests to backend
 │   ├── pdf-generator.js  # PDF creation and formatting
-│   └── export-handler.js # Export coordination
+│   └── export-handler.js # Export coordination (JSON, PDF, Excel)
 ├── templates/
 │   └── index.html        # Main HTML template, styling
 └── docs/                 # Documentation
@@ -112,8 +112,14 @@ folder-meta-generator/
 
 **pdf-generator.js**
 - Professional PDF document creation
-- Layout and styling
+- Layout and styling for individual file listings
 - Corporate formatting
+
+**export-handler.js**
+- JSON export functionality
+- PDF export coordination
+- Excel export with XLSX library
+- Structured data formatting for different export types
 
 ## Development Workflow
 

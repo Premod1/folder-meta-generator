@@ -25,20 +25,43 @@ def generate():
     if not tree:
         return jsonify({"error": "Missing folder tree"}), 400
 
-    system_msg = """You are an assistant that generates concise metadata for a folder based only on its folder and file names. 
+    system_msg = """You are an assistant that generates metadata for individual files in a folder based on their file names and folder context.
 
 Requirements:
 1. Return ONLY a valid JSON object with these keys:
    {
      "title": "short title summarizing the folder",
-     "description": "detailed description (4-6 sentences) explaining what files and folders are inside, their purpose, and organization",
-     "tags": ["array","of","short","keywords","from","folder"]
+     "files": [
+        {
+          "filename": "file1.jpg",
+          "description": "2-3 sentences describing file1.jpg",
+          "tags": ["keywords","related","to","file1"]
+        },
+        {
+          "filename": "file2.png", 
+          "description": "2-3 sentences describing file2.png",
+          "tags": ["keywords","related","to","file2"]
+        }
+     ]
    }
 2. Do NOT include any extra text, markdown, or explanations.
-3. Focus entirely on the names of the folders and files in the structure provided.
-4. Make the description comprehensive - mention specific file types, folder organization, and infer the project's purpose from the structure."""
+3. Generate one entry in the "files" array for each file in the provided list.
+4. Infer the file's purpose and content from its filename, extension, and folder context."""
 
-    user_msg = f"Folder tree JSON:\n{json.dumps(tree, indent=2)}\n\nHint: {hint}"
+    # Extract just the file list from the tree
+    file_list = []
+    def extract_files(node, path=""):
+        if node.get("type") == "file":
+            full_path = f"{path}/{node['name']}" if path else node['name']
+            file_list.append(full_path)
+        elif node.get("type") == "folder" and "children" in node:
+            current_path = f"{path}/{node['name']}" if path else node['name']
+            for child in node["children"]:
+                extract_files(child, current_path)
+    
+    extract_files(tree)
+    
+    user_msg = f"File list:\n{json.dumps(file_list, indent=2)}\n\nHint: {hint}"
 
     try:
         completion = client.chat.completions.create(
@@ -78,22 +101,32 @@ Requirements:
         
         try:
             parsed_json = json.loads(content)
-            # Validate required keys
-            if not all(key in parsed_json for key in ['title', 'description', 'tags']):
+            # Validate required keys for the new format
+            if not all(key in parsed_json for key in ['title', 'files']):
                 return jsonify({
                     "title": "Generated Folder",
-                    "description": "Metadata could not be generated properly.",
-                    "tags": ["folder"]
+                    "files": [
+                        {
+                            "filename": "unknown_file",
+                            "description": "Metadata could not be generated properly.",
+                            "tags": ["unknown"]
+                        }
+                    ]
                 })
             return jsonify(parsed_json)
         except json.JSONDecodeError as json_error:
             print(f"JSON decode error: {json_error}")
             print(f"Content that failed to parse: {repr(content)}")
-            # Return a fallback response
+            # Return a fallback response with the new format
             return jsonify({
                 "title": "Generated Folder",
-                "description": f"AI response: {content[:100]}..." if len(content) > 100 else content,
-                "tags": ["folder", "generated"]
+                "files": [
+                    {
+                        "filename": "error_file",
+                        "description": f"AI response: {content[:100]}..." if len(content) > 100 else content,
+                        "tags": ["folder", "generated"]
+                    }
+                ]
             })
     except Exception as e:
         import traceback

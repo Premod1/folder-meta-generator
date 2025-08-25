@@ -7,14 +7,62 @@ A professional AI-powered web application that analyzes folder structures and ge
 ![Flask](https://img.shields.io/badge/Flask-2.0%2B-red.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
+## 📸 Screenshots
+
+### Main Interface
+![Main Interface](assets/Screenshot%20from%202025-08-25%2007-05-00.png)
+
+### Analysis Results with Individual File Descriptions
+![Analysis Results](assets/Screenshot%20from%202025-08-25%2007-05-12.png)
+
+## 🎯 How It Works
+
+1. **Select Your Folder**: Choose any folder from your system using the intuitive file picker
+2. **AI Analysis**: Our advanced AI analyzes each file based on its name, extension, and context
+3. **Individual Descriptions**: Get 2-3 sentence descriptions for every file in your folder
+4. **Smart Tagging**: Receive relevant keywords and tags for better organization
+5. **Export Options**: Save results in JSON, PDF, or Excel format for documentation and sharing
+
+## 💡 Design Philosophy
+
+The Folder Metadata Generator combines powerful AI capabilities with an elegant, professional interface:
+
+- **Modern UI Design**: Glass-morphism effects, gradient backgrounds, and smooth animations
+- **Mobile-First Responsive**: Seamless experience across all devices and screen sizes  
+- **Professional Color Scheme**: Carefully chosen colors for readability and visual appeal
+- **Intuitive Workflow**: Clear visual hierarchy guides users through the analysis process
+- **Export Flexibility**: Multiple format options to suit different documentation needs
+
+## 🔧 What You Get
+
+For each file in your selected folder, the application provides:
+- **Filename**: Original file name with extension
+- **Description**: 2-3 sentences explaining the file's likely purpose and content
+- **Tags**: Relevant keywords for categorization and search
+- **Professional Formatting**: Clean, readable output in multiple export formats
+
 ## 🚀 Features
+
+The Folder Metadata Generator provides a comprehensive solution for analyzing and documenting your project structures with AI-powered intelligence.
 
 ### Core Functionality
 - **AI-Powered Analysis**: Uses Groq's language models for intelligent folder structure analysis
+- **Individual File Analysis**: Generates detailed descriptions and tags for each file in your folder
 - **Professional UI**: Modern, responsive design with gradient backgrounds and glass-morphism effects
-- **Multi-Format Export**: Export results as JSON or professionally formatted PDF documents
+- **Multi-Format Export**: Export results as JSON, professionally formatted PDF documents, or Excel spreadsheets
 - **Real-time Processing**: Instant analysis with loading states and progress indicators
 - **Error Handling**: Robust error management with user-friendly feedback
+
+### Export Options
+- **📄 JSON Export**: Clean, structured data for integration with other tools
+- **📊 Excel Export**: Spreadsheet format with organized columns for easy data manipulation
+- **📋 PDF Export**: Professional documents ready for presentations and documentation
+
+### User Experience
+- **Drag & Drop Interface**: Simple folder selection with visual feedback
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices  
+- **Professional Styling**: Modern UI with smooth animations and professional color schemes
+- **Real-time Feedback**: Loading indicators, success messages, and error handling
 
 ### Technical Features
 - **Modular Architecture**: Clean, separated JavaScript modules for maintainability
@@ -75,6 +123,9 @@ folder-meta-generator/
 ├── .env                        # Environment variables (create this)
 ├── .gitignore                 # Git ignore rules
 ├── README.md                  # This file
+├── assets/                    # Screenshots and images
+│   ├── Screenshot from 2025-08-25 07-05-00.png
+│   └── Screenshot from 2025-08-25 07-05-12.png
 ├── docs/                      # Documentation
 │   ├── API.md                 # API documentation
 │   ├── DEPLOYMENT.md          # Deployment guide
@@ -85,7 +136,7 @@ folder-meta-generator/
 │   ├── ui-helpers.js          # UI state management
 │   ├── api-client.js          # Backend API communication
 │   ├── pdf-generator.js       # PDF generation
-│   └── export-handler.js      # Export functionality
+│   └── export-handler.js      # Export functionality (JSON, PDF, Excel)
 └── templates/
     └── index.html             # Main HTML template
 ```
@@ -96,8 +147,8 @@ folder-meta-generator/
 1. Open the application in your web browser
 2. Click "Choose Folder" and select a folder to analyze
 3. Click "Generate Metadata" to start the AI analysis
-4. View the results in the analysis section
-5. Export as JSON or PDF as needed
+4. View the results showing individual file descriptions and tags
+5. Export as JSON, PDF, or Excel as needed
 
 ### API Usage
 You can also use the API directly:
@@ -108,10 +159,31 @@ curl -X POST http://localhost:5000/api/generate \
   -d '{
     "tree": {
       "name": "/",
-      "type": "folder",
+      "type": "folder", 
       "children": [...]
-    }
+    },
+    "hint": "Optional analysis hint"
   }'
+```
+
+The API now returns individual file analysis:
+
+```json
+{
+  "title": "Project Name",
+  "files": [
+    {
+      "filename": "app.py",
+      "description": "Main Flask application file containing the web server and API endpoints.",
+      "tags": ["python", "flask", "backend", "api"]
+    },
+    {
+      "filename": "README.md", 
+      "description": "Project documentation and setup instructions.",
+      "tags": ["documentation", "markdown", "readme"]
+    }
+  ]
+}
 ```
 
 ## 🔧 Configuration
@@ -146,8 +218,18 @@ curl -X POST http://localhost:5000/api/generate \
 ```json
 {
   "title": "Project Title",
-  "description": "Detailed description of the folder contents...",
-  "tags": ["tag1", "tag2", "tag3"]
+  "files": [
+    {
+      "filename": "app.py",
+      "description": "Main application file with Flask server implementation and API routes.",
+      "tags": ["python", "flask", "api", "backend"]
+    },
+    {
+      "filename": "requirements.txt",
+      "description": "Python dependencies list for package management and installation.",
+      "tags": ["dependencies", "python", "pip", "requirements"]
+    }
+  ]
 }
 ```
 
@@ -224,6 +306,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Groq](https://groq.com/) for providing the AI language model API
 - [Flask](https://flask.palletsprojects.com/) for the web framework
 - [jsPDF](https://github.com/parallax/jsPDF) for PDF generation
+- [SheetJS](https://sheetjs.com/) for Excel export functionality
 - [Font Awesome](https://fontawesome.com/) for icons
 
 ## 📞 Support
