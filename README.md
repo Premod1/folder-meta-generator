@@ -11,8 +11,9 @@ A professional AI-powered web application that analyzes folder structures and ge
 
 ### Core Functionality
 - **AI-Powered Analysis**: Uses Groq's language models for intelligent folder structure analysis
+- **Individual File Analysis**: Generates detailed descriptions and tags for each file in your folder
 - **Professional UI**: Modern, responsive design with gradient backgrounds and glass-morphism effects
-- **Multi-Format Export**: Export results as JSON or professionally formatted PDF documents
+- **Multi-Format Export**: Export results as JSON, professionally formatted PDF documents, or Excel spreadsheets
 - **Real-time Processing**: Instant analysis with loading states and progress indicators
 - **Error Handling**: Robust error management with user-friendly feedback
 
@@ -85,7 +86,7 @@ folder-meta-generator/
 │   ├── ui-helpers.js          # UI state management
 │   ├── api-client.js          # Backend API communication
 │   ├── pdf-generator.js       # PDF generation
-│   └── export-handler.js      # Export functionality
+│   └── export-handler.js      # Export functionality (JSON, PDF, Excel)
 └── templates/
     └── index.html             # Main HTML template
 ```
@@ -96,8 +97,8 @@ folder-meta-generator/
 1. Open the application in your web browser
 2. Click "Choose Folder" and select a folder to analyze
 3. Click "Generate Metadata" to start the AI analysis
-4. View the results in the analysis section
-5. Export as JSON or PDF as needed
+4. View the results showing individual file descriptions and tags
+5. Export as JSON, PDF, or Excel as needed
 
 ### API Usage
 You can also use the API directly:
@@ -108,10 +109,31 @@ curl -X POST http://localhost:5000/api/generate \
   -d '{
     "tree": {
       "name": "/",
-      "type": "folder",
+      "type": "folder", 
       "children": [...]
-    }
+    },
+    "hint": "Optional analysis hint"
   }'
+```
+
+The API now returns individual file analysis:
+
+```json
+{
+  "title": "Project Name",
+  "files": [
+    {
+      "filename": "app.py",
+      "description": "Main Flask application file containing the web server and API endpoints.",
+      "tags": ["python", "flask", "backend", "api"]
+    },
+    {
+      "filename": "README.md", 
+      "description": "Project documentation and setup instructions.",
+      "tags": ["documentation", "markdown", "readme"]
+    }
+  ]
+}
 ```
 
 ## 🔧 Configuration
@@ -146,8 +168,18 @@ curl -X POST http://localhost:5000/api/generate \
 ```json
 {
   "title": "Project Title",
-  "description": "Detailed description of the folder contents...",
-  "tags": ["tag1", "tag2", "tag3"]
+  "files": [
+    {
+      "filename": "app.py",
+      "description": "Main application file with Flask server implementation and API routes.",
+      "tags": ["python", "flask", "api", "backend"]
+    },
+    {
+      "filename": "requirements.txt",
+      "description": "Python dependencies list for package management and installation.",
+      "tags": ["dependencies", "python", "pip", "requirements"]
+    }
+  ]
 }
 ```
 
@@ -224,6 +256,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Groq](https://groq.com/) for providing the AI language model API
 - [Flask](https://flask.palletsprojects.com/) for the web framework
 - [jsPDF](https://github.com/parallax/jsPDF) for PDF generation
+- [SheetJS](https://sheetjs.com/) for Excel export functionality
 - [Font Awesome](https://fontawesome.com/) for icons
 
 ## 📞 Support

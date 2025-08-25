@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Folder Metadata Generator provides a RESTful API for analyzing folder structures and generating metadata using AI.
+The Folder Metadata Generator provides a RESTful API for analyzing folder structures and generating detailed metadata for individual files using AI.
 
 ## Base URL
 
@@ -18,7 +18,7 @@ No authentication is required for local development. The application uses your G
 
 ### Generate Metadata
 
-Generate comprehensive metadata for a folder structure.
+Generate comprehensive metadata with individual file analysis for a folder structure.
 
 **Endpoint:** `POST /generate`
 
@@ -72,8 +72,23 @@ Content-Type: application/json
 ```json
 {
   "title": "Flask Web Application",
-  "description": "This folder contains a Flask web application with a main application file (app.py) in the src directory. The structure suggests a simple web service or API implementation using Python's Flask framework. The project appears to be organized with source code separated into a dedicated src folder, following common Python project conventions.",
-  "tags": ["flask", "python", "web-application", "api", "backend"]
+  "files": [
+    {
+      "filename": "app.py",
+      "description": "Main Flask application file containing the web server setup, API endpoints, and AI integration for metadata generation.",
+      "tags": ["python", "flask", "backend", "api", "web-server"]
+    },
+    {
+      "filename": "requirements.txt",
+      "description": "Python package dependencies file listing all required libraries for the Flask application including Flask, python-dotenv, and groq.",
+      "tags": ["dependencies", "python", "pip", "packages", "requirements"]
+    },
+    {
+      "filename": "README.md",
+      "description": "Project documentation file containing setup instructions, usage guidelines, and feature descriptions for the folder metadata generator.",
+      "tags": ["documentation", "markdown", "readme", "instructions", "guide"]
+    }
+  ]
 }
 ```
 
@@ -96,8 +111,10 @@ Content-Type: application/json
 | Field | Type | Description |
 |-------|------|-------------|
 | `title` | String | Short, descriptive title for the folder |
-| `description` | String | Detailed description (4-6 sentences) of the folder contents |
-| `tags` | Array[String] | Relevant keywords and tags |
+| `files` | Array[Object] | Array of file analysis objects |
+| `files[].filename` | String | Name of the analyzed file |
+| `files[].description` | String | Detailed description (2-3 sentences) of the file's purpose and content |
+| `files[].tags` | Array[String] | Relevant keywords and tags for the file |
 
 ## Error Handling
 
@@ -149,6 +166,23 @@ data = {
 response = requests.post(url, json=data)
 result = response.json()
 print(json.dumps(result, indent=2))
+
+# Expected output format:
+# {
+#   "title": "Python Project",
+#   "files": [
+#     {
+#       "filename": "README.md",
+#       "description": "Project documentation with setup and usage instructions.",
+#       "tags": ["documentation", "markdown", "readme"]
+#     },
+#     {
+#       "filename": "main.py", 
+#       "description": "Main Python script containing the core application logic.",
+#       "tags": ["python", "main", "script", "application"]
+#     }
+#   ]
+# }
 ```
 
 ### JavaScript Example
@@ -187,7 +221,14 @@ fetch('/api/generate', {
   body: JSON.stringify(data)
 })
 .then(response => response.json())
-.then(result => console.log(result));
+.then(result => {
+  console.log(result);
+  // Process individual file data
+  result.files.forEach(file => {
+    console.log(`${file.filename}: ${file.description}`);
+    console.log(`Tags: ${file.tags.join(', ')}`);
+  });
+});
 ```
 
 ### cURL Example
@@ -220,12 +261,14 @@ curl -X POST http://localhost:5000/api/generate \
 1. **Folder Structure**: Ensure the tree object accurately represents your folder structure
 2. **Hints**: Use the optional hint parameter to provide context for better analysis
 3. **Error Handling**: Always handle both success and error responses
-4. **File Sizes**: Include file sizes when available for more accurate analysis
-5. **Timeouts**: Set appropriate timeouts (5-10 seconds) as AI processing can take time
+4. **File Processing**: Process the `files` array to access individual file metadata
+5. **Export Integration**: Use the structured response for Excel, PDF, or JSON exports
+6. **Timeouts**: Set appropriate timeouts (5-10 seconds) as AI processing can take time
 
 ## Limitations
 
-- Maximum folder depth: No explicit limit, but very deep structures may affect performance
-- File size analysis: Currently only considers file names and sizes, not content
+- Maximum folder depth: No explicit limit, but very deep structures may affect performance  
+- File analysis: Currently analyzes file names and extensions, not file content
+- Individual files: Generates analysis for each file, which may increase processing time for large folders
 - Language support: Optimized for English, but may work with other languages
 - API dependencies: Requires active Groq API key and internet connection
