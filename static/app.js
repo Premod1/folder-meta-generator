@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const analyzeBtn = document.getElementById("analyze");
   const exportJsonBtn = document.getElementById("export-json");
   const exportPdfBtn = document.getElementById("export-pdf");
+  const exportExcelBtn = document.getElementById("export-excel");
 
   // Handle folder selection
   folderInput.addEventListener("change", handleFolderSelection);
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Handle exports
   exportJsonBtn.addEventListener("click", handleJSONExport);
   exportPdfBtn.addEventListener("click", handlePDFExport);
+  exportExcelBtn.addEventListener("click", handleExcelExport);
 });
 
 function handleFolderSelection() {
@@ -90,5 +92,19 @@ function handlePDFExport() {
   } catch (error) {
     console.error("PDF export error:", error);
     alert("Failed to generate PDF. Please try again.");
+  }
+}
+
+function handleExcelExport() {
+  if (!currentMetadata) {
+    alert("No metadata to export. Please generate metadata first.");
+    return;
+  }
+
+  try {
+    window.ExportHandler.exportToExcel(currentMetadata);
+  } catch (error) {
+    console.error("Excel export error:", error);
+    alert("Failed to export Excel. Please try again.");
   }
 }

@@ -41,10 +41,59 @@ function exportToExcel(metadata) {
     throw new Error("No metadata to export");
   }
 
-  const worksheet = XLSX.utils.json_to_sheet(metadata);
+  // Create worksheet data
+  const worksheetData = [];
+  
+  // Add header row
+  worksheetData.push([
+    'Folder Title',
+    'Filename', 
+    'Description',
+    'Tags'
+  ]);
+
+  // Add file data rows
+  if (metadata.files && Array.isArray(metadata.files)) {
+    metadata.files.forEach(file => {
+      worksheetData.push([
+        metadata.title || 'Unknown Folder',
+        file.filename || 'Unknown File',
+        file.description || 'No description',
+        (file.tags && Array.isArray(file.tags)) ? file.tags.join(', ') : 'No tags'
+      ]);
+    });
+  } else {
+    // Fallback for old format or missing files
+    worksheetData.push([
+      metadata.title || 'Unknown Folder',
+      'No files found',
+      metadata.description || 'No description available',
+      (metadata.tags && Array.isArray(metadata.tags)) ? metadata.tags.join(', ') : 'No tags'
+    ]);
+  }
+
+  // Create worksheet and workbook
+  const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
   const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Metadata");
-  XLSX.writeFile(workbook, `${(metadata.title || "folder_metadata").replace(/[^a-zA-Z0-9]/g, '_')}.xlsx`);
+  
+  // Set column widths for better formatting
+  const colWidths = [
+    { wch: 25 }, // Folder Title
+    { wch: 30 }, // Filename
+    { wch: 50 }, // Description
+    { wch: 30 }  // Tags
+  ];
+  worksheet['!cols'] = colWidths;
+  
+  // Add worksheet to workbook
+  XLSX.utils.book_append_sheet(workbook, worksheet, "File Metadata");
+  
+  // Generate filename
+  const safeTitle = (metadata.title || "folder_metadata").replace(/[^a-zA-Z0-9]/g, '_');
+  const filename = `${safeTitle}.xlsx`;
+  
+  // Save the file
+  XLSX.writeFile(workbook, filename);
 }
 
 // Export for use in other modules

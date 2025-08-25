@@ -206,6 +206,14 @@
             transform: translateY(-1px);
         }
 
+        .export-btn.excel {
+            background: #27ae60;
+        }
+
+        .export-btn.excel:hover {
+            background: #229954;
+        }
+
         .result-container {
             background: #2c3e50;
             color: #ecf0f1;
@@ -336,7 +344,7 @@
                 <div class="feature-card">
                     <i class="fas fa-file-export"></i>
                     <h4>Multiple Formats</h4>
-                    <p>Export results in JSON, PDF, or other formats for documentation</p>
+                    <p>Export results in JSON, PDF, Excel, or other formats for documentation</p>
                 </div>
             </div>
 
@@ -366,6 +374,9 @@
                         <button class="export-btn" id="export-pdf">
                             <i class="fas fa-file-pdf"></i> Export PDF
                         </button>
+                        <button class="export-btn excel" id="export-excel">
+                            <i class="fas fa-file-excel"></i> Export Excel
+                        </button>
                     </div>
                 </div>
                 <div class="result-container" id="result">
@@ -388,5 +399,6 @@
     <script src="{{ url_for('static', filename='export-handler.js') }}"></script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 </html>
