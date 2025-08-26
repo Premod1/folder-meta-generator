@@ -38,6 +38,7 @@ function handleFolderSelection() {
 
 async function handleAnalysis() {
   const folderInput = document.getElementById("folder");
+  const customPrompt = document.getElementById("custom-prompt");
   
   if (!folderInput.files.length) {
     window.UIHelpers.showError("Please select a folder first.");
@@ -50,9 +51,10 @@ async function handleAnalysis() {
   window.UIHelpers.setAnalyzeButtonState(true, '<i class="fas fa-spinner fa-spin"></i> Processing...');
 
   try {
-    // Build tree and generate metadata
+    // Build tree and generate metadata with custom prompt
     const tree = window.TreeBuilder.buildTree(folderInput.files);
-    const data = await window.APIClient.generateMetadata(tree);
+    const prompt = customPrompt.value.trim();
+    const data = await window.APIClient.generateMetadata(tree, prompt);
 
     // Store and display results
     currentMetadata = data;

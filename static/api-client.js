@@ -3,11 +3,18 @@
  * Handles communication with the backend API
  */
 
-async function generateMetadata(tree) {
+async function generateMetadata(tree, customPrompt = "") {
+  const payload = { tree };
+  
+  // Add custom prompt if provided
+  if (customPrompt) {
+    payload.customPrompt = customPrompt;
+  }
+
   const response = await fetch("/api/generate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tree })
+    body: JSON.stringify(payload)
   });
 
   if (!response.ok) {

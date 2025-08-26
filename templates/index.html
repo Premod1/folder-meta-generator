@@ -160,6 +160,53 @@
             box-shadow: none;
         }
 
+        .prompt-section {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .prompt-section label {
+            display: block;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .prompt-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+        }
+
+        .prompt-input::placeholder {
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        .prompt-examples {
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .prompt-examples strong {
+            color: #2c3e50;
+        }
+
         .results-section {
             margin-top: 40px;
         }
@@ -334,7 +381,12 @@
                 <div class="feature-card">
                     <i class="fas fa-brain"></i>
                     <h4>AI-Powered Analysis</h4>
-                    <p>Intelligent analysis of folder structures using advanced language models</p>
+                    <p>Intelligent analysis of folder structures using advanced language models with custom prompts</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-magic"></i>
+                    <h4>Custom Prompts</h4>
+                    <p>Guide the AI analysis with your own custom prompts for targeted insights</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-tags"></i>
@@ -358,6 +410,23 @@
                          Choose Folder
                     </label>
                 </div>
+                
+                <div class="prompt-section">
+                    <label for="custom-prompt">
+                        <i class="fas fa-magic"></i> Custom Analysis Prompt (Optional)
+                    </label>
+                    <textarea id="custom-prompt" class="prompt-input" 
+                              placeholder="Enter a custom prompt to guide the AI analysis. For example: 'Focus on the technical architecture and identify the main components' or 'Analyze this as a web development project and highlight the frontend/backend separation'">
+                    </textarea>
+                    <div class="prompt-examples">
+                        <strong>Examples:</strong> 
+                        "Focus on security-related files" • 
+                        "Analyze as a data science project" • 
+                        "Identify configuration and deployment files" • 
+                        "Highlight documentation and guides"
+                    </div>
+                </div>
+                
                 <br>
                 <button id="analyze" class="analyze-btn" disabled>
                     <i class="fas fa-cogs"></i> Generate Metadata
