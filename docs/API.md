@@ -47,7 +47,8 @@ Content-Type: application/json
       }
     ]
   },
-  "hint": "Optional hint for AI analysis"
+  "hint": "Optional hint for AI analysis",
+  "customPrompt": "Focus on security-related files and configuration"
 }
 ```
 
@@ -57,6 +58,7 @@ Content-Type: application/json
 |-----------|------|----------|-------------|
 | `tree` | Object | Yes | Folder structure object |
 | `hint` | String | No | Optional hint to guide analysis |
+| `customPrompt` | String | No | Custom prompt to guide AI analysis with specific focus |
 
 **Tree Object Structure:**
 ```json
@@ -160,7 +162,8 @@ data = {
             }
         ]
     },
-    "hint": "Python project"
+    "hint": "Python project",
+    "customPrompt": "Focus on identifying the main application files and configuration"
 }
 
 response = requests.post(url, json=data)
@@ -252,7 +255,8 @@ curl -X POST http://localhost:5000/api/generate \
         }
       ]
     },
-    "hint": "Web project"
+    "hint": "Web project",
+    "customPrompt": "Focus on frontend architecture and styling approach"
   }'
 ```
 

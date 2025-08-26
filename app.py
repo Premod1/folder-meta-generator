@@ -21,10 +21,12 @@ def generate():
     data = request.json
     tree = data.get("tree")
     hint = data.get("hint", "")
+    custom_prompt = data.get("customPrompt", "")
 
     if not tree:
         return jsonify({"error": "Missing folder tree"}), 400
 
+    # Base system message
     system_msg = """You are an assistant that generates metadata for individual files in a folder based on their file names and folder context.
 
 Requirements:
@@ -48,6 +50,10 @@ Requirements:
 3. Generate one entry in the "files" array for each file in the provided list.
 4. Infer the file's purpose and content from its filename, extension, and folder context."""
 
+    # Add custom prompt if provided
+    if custom_prompt:
+        system_msg += f"\n\n5. IMPORTANT: Follow this additional guidance: {custom_prompt}"
+
     # Extract just the file list from the tree
     file_list = []
     def extract_files(node, path=""):
@@ -61,7 +67,14 @@ Requirements:
     
     extract_files(tree)
     
-    user_msg = f"File list:\n{json.dumps(file_list, indent=2)}\n\nHint: {hint}"
+    # Construct user message with hint and custom prompt
+    user_msg = f"File list:\n{json.dumps(file_list, indent=2)}"
+    
+    if hint:
+        user_msg += f"\n\nHint: {hint}"
+    
+    if custom_prompt:
+        user_msg += f"\n\nCustom Analysis Instructions: {custom_prompt}"
 
     try:
         completion = client.chat.completions.create(

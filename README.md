@@ -47,6 +47,7 @@ The Folder Metadata Generator provides a comprehensive solution for analyzing an
 
 ### Core Functionality
 - **AI-Powered Analysis**: Uses Groq's language models for intelligent folder structure analysis
+- **Custom Prompt Support**: Guide AI analysis with your own custom prompts for targeted insights
 - **Individual File Analysis**: Generates detailed descriptions and tags for each file in your folder
 - **Professional UI**: Modern, responsive design with gradient backgrounds and glass-morphism effects
 - **Multi-Format Export**: Export results as JSON, professionally formatted PDF documents, or Excel spreadsheets
@@ -146,9 +147,17 @@ folder-meta-generator/
 ### Basic Usage
 1. Open the application in your web browser
 2. Click "Choose Folder" and select a folder to analyze
-3. Click "Generate Metadata" to start the AI analysis
-4. View the results showing individual file descriptions and tags
-5. Export as JSON, PDF, or Excel as needed
+3. (Optional) Enter a custom prompt to guide the AI analysis
+4. Click "Generate Metadata" to start the AI analysis
+5. View the results showing individual file descriptions and tags
+6. Export as JSON, PDF, or Excel as needed
+
+### Custom Prompt Examples
+- **"Focus on security-related files and identify potential vulnerabilities"**
+- **"Analyze this as a data science project and highlight data processing files"**
+- **"Identify configuration files and their purposes"**
+- **"Focus on the technical architecture and main components"**
+- **"Analyze documentation quality and completeness"**
 
 ### API Usage
 You can also use the API directly:
@@ -162,7 +171,8 @@ curl -X POST http://localhost:5000/api/generate \
       "type": "folder", 
       "children": [...]
     },
-    "hint": "Optional analysis hint"
+    "hint": "Optional analysis hint",
+    "customPrompt": "Focus on security aspects and identify configuration files"
   }'
 ```
 
