@@ -159,6 +159,20 @@ folder-meta-generator/
 - **"Focus on the technical architecture and main components"**
 - **"Analyze documentation quality and completeness"**
 
+### Custom promt
+
+```
+I have a folder with multiple files. For each file, I want you to generate a title and description.  
+
+Details:
+* Input: The filename and file content (or just filename if you don’t need content).  
+* Output: A tittle in plain English
+* Output: A description in plain English, maximum 10 sentences.  
+* Audience: Non-technical users (make it simple and clear).  
+* Format: Return results as JSON with keys: "filename", "description".
+
+```
+
 ### API Usage
 You can also use the API directly:
 
