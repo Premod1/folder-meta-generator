@@ -33,6 +33,9 @@ function showSuccess(data) {
         <h4 style="margin: 0 0 5px 0; color: #3498db;">
           <i class="fas fa-file"></i> ${file.filename}
         </h4>
+        <h5 style="margin: 0 0 8px 0; color: #f39c12; font-size: 14px;">
+          <i class="fas fa-tag"></i> ${file.title || 'Untitled'}
+        </h5>
         <p style="margin: 5px 0; color: #ecf0f1;">${file.description}</p>
         <div class="tags" style="margin-top: 8px;">
           ${file.tags ? file.tags.map(tag => `

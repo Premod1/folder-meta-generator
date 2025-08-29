@@ -44,10 +44,11 @@ function exportToExcel(metadata) {
   // Create worksheet data
   const worksheetData = [];
   
-  // Add header row
+  // Add header row - now includes Title column
   worksheetData.push([
     'Folder Title',
-    'Filename', 
+    'Filename',
+    'Title', 
     'Description',
     'Tags'
   ]);
@@ -58,6 +59,7 @@ function exportToExcel(metadata) {
       worksheetData.push([
         metadata.title || 'Unknown Folder',
         file.filename || 'Unknown File',
+        file.title || 'Untitled File',
         file.description || 'No description',
         (file.tags && Array.isArray(file.tags)) ? file.tags.join(', ') : 'No tags'
       ]);
@@ -67,6 +69,7 @@ function exportToExcel(metadata) {
     worksheetData.push([
       metadata.title || 'Unknown Folder',
       'No files found',
+      'N/A',
       metadata.description || 'No description available',
       (metadata.tags && Array.isArray(metadata.tags)) ? metadata.tags.join(', ') : 'No tags'
     ]);
@@ -76,10 +79,11 @@ function exportToExcel(metadata) {
   const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
   const workbook = XLSX.utils.book_new();
   
-  // Set column widths for better formatting
+  // Set column widths for better formatting - updated for new column
   const colWidths = [
-    { wch: 25 }, // Folder Title
-    { wch: 30 }, // Filename
+    { wch: 20 }, // Folder Title
+    { wch: 25 }, // Filename
+    { wch: 30 }, // Title (new column)
     { wch: 50 }, // Description
     { wch: 30 }  // Tags
   ];
