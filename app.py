@@ -36,13 +36,13 @@ Requirements:
      "files": [
         {
           "filename": "file1.jpg",
-          "title": "short descriptive title for this file",
+          "title": "unique descriptive title for this specific file",
           "description": "2-3 sentences describing file1.jpg",
           "tags": ["keywords","related","to","file1"]
         },
         {
           "filename": "file2.png", 
-          "title": "short descriptive title for this file",
+          "title": "different unique descriptive title for this specific file",
           "description": "2-3 sentences describing file2.png",
           "tags": ["keywords","related","to","file2"]
         }
@@ -50,8 +50,9 @@ Requirements:
    }
 2. Do NOT include any extra text, markdown, or explanations.
 3. Generate one entry in the "files" array for each file in the provided list.
-4. Each file must include: filename, title (short descriptive name), description (2-3 sentences), and tags array.
-5. Infer the file's purpose and content from its filename, extension, and folder context."""
+4. Each file must include: filename, title (UNIQUE descriptive name), description (2-3 sentences), and tags array.
+5. Create DIFFERENT and UNIQUE titles for each file - no two files should have the same title.
+6. Infer the file's purpose and content from its filename, extension, and folder context."""
 
     # Add custom prompt if provided
     if custom_prompt:
@@ -124,6 +125,7 @@ Requirements:
                     "files": [
                         {
                             "filename": "unknown_file",
+                            "title": "Untitled File",
                             "description": "Metadata could not be generated properly.",
                             "tags": ["unknown"]
                         }
@@ -139,6 +141,7 @@ Requirements:
                 "files": [
                     {
                         "filename": "error_file",
+                        "title": "Error Response",
                         "description": f"AI response: {content[:100]}..." if len(content) > 100 else content,
                         "tags": ["folder", "generated"]
                     }
